@@ -1,0 +1,19 @@
+[workspace]
+members = ["proc_macro"]
+
+[package]
+name = "xynok_std"
+version = "0.1.12"
+edition = "2024"
+
+[lints.clippy]
+redundant_field_names = "allow"
+too_many_arguments = "allow"
+
+[dependencies]
+thiserror = "2.0.18"
+log = "0.4"
+paste = "1.0.15"
+serde = { version = "1.0", features = ["derive"] }
+toml = "1.0"
+xynok_std_proc_macro = { path = "proc_macro" }
