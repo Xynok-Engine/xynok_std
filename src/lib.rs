@@ -1,5 +1,4 @@
-mod collection;
-pub use collection::*;
+pub mod collection;
 
 mod patterns;
 pub use patterns::*;

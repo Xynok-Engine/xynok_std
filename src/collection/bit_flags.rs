@@ -69,7 +69,7 @@ macro_rules! bitflags {
         // BITS = position of the highest used flag bit + 1, computed
         // from the OR of every declared value (so unused high bits in
         // the backing integer don't waste space).
-        impl $crate::Flags for $name {
+        impl $crate::collection::Flags for $name {
             const BITS: u32 = {
                 let mask: u64 = ($( $val )|*) as u64;
                 if mask == 0 { 0 } else { 64 - mask.leading_zeros() }

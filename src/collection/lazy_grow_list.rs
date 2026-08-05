@@ -1,4 +1,4 @@
-use crate::Queue;
+use crate::collection::Queue;
 
 pub struct LazyGrowList<T>
 {
@@ -8,7 +8,10 @@ pub struct LazyGrowList<T>
 }
 impl<T> Default for LazyGrowList<T>
 {
-    fn default() -> Self { Self::new() }
+    fn default() -> Self
+    {
+        Self::new()
+    }
 }
 impl<T> LazyGrowList<T>
 {
