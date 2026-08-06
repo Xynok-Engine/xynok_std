@@ -3,12 +3,12 @@ use core::fmt;
 use crate::unsafe_ptr::heap_ref::HeapRef;
 
 /// Non-owning mutable raw pointer. Equivalent to `&mut T` but without lifetimes.
-pub struct HeapRefMut<T>
+pub struct HeapMut<T>
 {
     pub(crate) ptr: *const T,
 }
 
-impl<T> HeapRefMut<T>
+impl<T> HeapMut<T>
 {
     pub(crate) fn get(&self) -> &T
     {
@@ -36,7 +36,7 @@ impl<T> HeapRefMut<T>
     }
 }
 
-impl<T> std::ops::Deref for HeapRefMut<T>
+impl<T> std::ops::Deref for HeapMut<T>
 {
     type Target = T;
     fn deref(&self) -> &T
@@ -44,7 +44,7 @@ impl<T> std::ops::Deref for HeapRefMut<T>
         unsafe { &*self.ptr }
     }
 }
-impl<T> std::ops::DerefMut for HeapRefMut<T>
+impl<T> std::ops::DerefMut for HeapMut<T>
 {
     fn deref_mut(&mut self) -> &mut T
     {
@@ -52,54 +52,54 @@ impl<T> std::ops::DerefMut for HeapRefMut<T>
     }
 }
 
-impl<T> Clone for HeapRefMut<T>
+impl<T> Clone for HeapMut<T>
 {
     fn clone(&self) -> Self
     {
         *self
     }
 }
-impl<T> Copy for HeapRefMut<T> {}
-unsafe impl<T> Send for HeapRefMut<T> {}
-unsafe impl<T> Sync for HeapRefMut<T> {}
+impl<T> Copy for HeapMut<T> {}
+unsafe impl<T> Send for HeapMut<T> {}
+unsafe impl<T> Sync for HeapMut<T> {}
 
-impl<T: fmt::Debug> fmt::Debug for HeapRefMut<T>
+impl<T: fmt::Debug> fmt::Debug for HeapMut<T>
 {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result
     {
         fmt::Debug::fmt(self.get(), f)
     }
 }
-impl<T: fmt::Display> fmt::Display for HeapRefMut<T>
+impl<T: fmt::Display> fmt::Display for HeapMut<T>
 {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result
     {
         fmt::Display::fmt(self.get(), f)
     }
 }
-impl<T: PartialEq> PartialEq for HeapRefMut<T>
+impl<T: PartialEq> PartialEq for HeapMut<T>
 {
     fn eq(&self, other: &Self) -> bool
     {
         self.get() == other.get()
     }
 }
-impl<T: Eq> Eq for HeapRefMut<T> {}
-impl<T: PartialOrd> PartialOrd for HeapRefMut<T>
+impl<T: Eq> Eq for HeapMut<T> {}
+impl<T: PartialOrd> PartialOrd for HeapMut<T>
 {
     fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering>
     {
         self.get().partial_cmp(other.get())
     }
 }
-impl<T: Ord> Ord for HeapRefMut<T>
+impl<T: Ord> Ord for HeapMut<T>
 {
     fn cmp(&self, other: &Self) -> std::cmp::Ordering
     {
         self.get().cmp(other.get())
     }
 }
-impl<T: std::hash::Hash> std::hash::Hash for HeapRefMut<T>
+impl<T: std::hash::Hash> std::hash::Hash for HeapMut<T>
 {
     fn hash<H: std::hash::Hasher>(&self, state: &mut H)
     {

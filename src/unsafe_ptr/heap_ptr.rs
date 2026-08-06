@@ -1,7 +1,7 @@
 use core::fmt;
 
+use crate::unsafe_ptr::heap_mut::HeapMut;
 use crate::unsafe_ptr::heap_ref::HeapRef;
-use crate::unsafe_ptr::heap_ref_mut::HeapRefMut;
 
 /// Owning raw pointer. Heap-allocates via `Box` and frees on drop.
 /// Not `Copy` or `Clone` — sole owner of the allocation.
@@ -23,9 +23,9 @@ impl<T> HeapPtr<T>
     {
         HeapRef { ptr: self.ptr }
     }
-    pub fn as_ref_mut(&self) -> HeapRefMut<T>
+    pub fn as_ref_mut(&self) -> HeapMut<T>
     {
-        HeapRefMut { ptr: self.ptr }
+        HeapMut { ptr: self.ptr }
     }
 
     pub(crate) fn get(&self) -> &T
