@@ -1,11 +1,11 @@
-mod raw_ptr;
-pub use raw_ptr::*;
+mod heap_ptr;
+pub use heap_ptr::*;
 
-mod raw_ref;
-pub use raw_ref::*;
+mod heap_ref;
+pub use heap_ref::*;
 
-mod raw_ref_mut;
-pub use raw_ref_mut::*;
+mod heap_ref_mut;
+pub use heap_ref_mut::*;
 
 pub fn leak<T>(val: T) -> *const u8
 {

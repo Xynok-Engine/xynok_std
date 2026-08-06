@@ -14,6 +14,14 @@ impl<T> Queue<T>
         Self { queue: VecDeque::new() }
     }
     #[inline]
+    pub fn with_capacity(capacity: usize) -> Self
+    {
+        Self {
+            queue: VecDeque::with_capacity(capacity),
+        }
+    }
+
+    #[inline]
     pub fn len(&self) -> usize
     {
         self.queue.len()
