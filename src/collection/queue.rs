@@ -42,11 +42,21 @@ impl<T> Queue<T>
         self.queue.pop_front()
     }
     #[inline]
+    pub fn enqueue_batch<I>(&mut self, vals: I)
+    where I: IntoIterator<Item = T>
+    {
+        self.queue.extend(vals);
+    }
+    #[inline]
+    pub fn dequeue_batch(&mut self, count: usize, output: &mut Vec<T>) -> usize
+    {
+        let count = count.min(self.queue.len());
+        output.extend(self.queue.drain(..count));
+        count
+    }
+    #[inline]
     pub fn peek(&self) -> Option<&T>
     {
         self.queue.front()
     }
 }
-
-// test changelog
-pub struct X {}
