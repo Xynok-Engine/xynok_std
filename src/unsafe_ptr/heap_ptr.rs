@@ -4,7 +4,7 @@ use crate::unsafe_ptr::heap_mut::HeapMut;
 use crate::unsafe_ptr::heap_ref::HeapRef;
 
 /// Owning raw pointer. Heap-allocates via `Box` and frees on drop.
-/// Not `Copy` or `Clone` — sole owner of the allocation.
+/// Not `Copy` or `Clone` sole owner of the allocation.
 pub struct HeapPtr<T>
 {
     ptr: *const T,
@@ -19,19 +19,23 @@ impl<T> HeapPtr<T>
         }
     }
 
+    #[inline]
     pub fn as_ref(&self) -> HeapRef<T>
     {
         HeapRef { ptr: self.ptr }
     }
+    #[inline]
     pub fn as_ref_mut(&self) -> HeapMut<T>
     {
         HeapMut { ptr: self.ptr }
     }
 
+    #[inline]
     pub(crate) fn get(&self) -> &T
     {
         unsafe { &*self.ptr }
     }
+    #[inline]
     pub(crate) fn get_mut(&mut self) -> &mut T
     {
         unsafe { &mut *(self.ptr as *mut T) }
