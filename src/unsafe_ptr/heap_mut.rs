@@ -10,29 +10,36 @@ pub struct HeapMut<T>
 
 impl<T> HeapMut<T>
 {
+    #[inline]
     pub(crate) fn get(&self) -> &T
     {
         unsafe { &*self.ptr }
     }
-    /// trả về con trỏ thô, bypass borrow checker
+    /// Returns a raw pointer, bypassing the borrow checker
+    #[inline]
     pub fn as_ref(&self) -> HeapRef<T>
     {
         HeapRef { ptr: self.ptr }
     }
-    /// trả về con trỏ có lifetime, tuân thủ rule borrow checker của rust
-    /// Đôi khi, để rõ ý đồ sử dụng của ptr này, cần khai báo tường minh lifetime khi dùng fn này
-    /// nhưng Rust compiler sẽ đủ thông minh để xác định chính xác lifetime, nên về cơ bản hãy chú
-    /// ý nhận thức dc ptr này là dùng tạm local fn lifetime hay là lưu trữ ở đâu đó. Và khi lưu
-    /// trữ, thì bắt buộc là struct, enum đó sẽ cần có lifetime. Boom ! vậy đó là lý do rust cần
-    /// khai báo tường minh lifetime cho struct khi nó chứa ptr.
+    /// Returns a pointer with a lifetime that respects Rust's borrow checker rules.
+    /// Sometimes, to clarify the intent behind this pointer, you may need to explicitly declare the lifetime when calling this function.
+    /// However, the Rust compiler is usually smart enough to infer the correct lifetime, so just be mindful of whether this pointer is intended for a temporary local scope or for long-term storage.
+    /// If you store it, the struct or enum holding it will require an explicit lifetime.
+    /// Boom! That is exactly why Rust requires you to declare lifetimes for structs that contain pointers.
+    #[inline]
     pub fn as_ref_with_caller_lifetime<'a>(&self) -> &'a T
     {
         unsafe { &*self.ptr }
     }
-
+    #[inline]
     pub fn as_ref_mut<'a>(&self) -> &'a mut T
     {
         unsafe { &mut *(self.ptr as *mut T) }
+    }
+    #[inline]
+    pub fn ptr(&self) -> *const T
+    {
+        self.ptr
     }
 }
 
