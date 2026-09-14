@@ -11,6 +11,11 @@ pub struct HeapMut<T>
 impl<T> HeapMut<T>
 {
     #[inline]
+    pub fn from_raw(input: *const ()) -> Self
+    {
+        Self { ptr: input as *const T }
+    }
+    #[inline]
     pub(crate) fn get(&self) -> &T
     {
         unsafe { &*self.ptr }

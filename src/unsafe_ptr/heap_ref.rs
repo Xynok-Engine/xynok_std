@@ -8,6 +8,12 @@ pub struct HeapRef<T>
 
 impl<T> HeapRef<T>
 {
+    #[inline]
+    pub fn from_raw(input: *const ()) -> Self
+    {
+        Self { ptr: input as *const T }
+    }
+    #[inline]
     pub fn get(&self) -> &T
     {
         unsafe { &*self.ptr }

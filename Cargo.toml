@@ -3,7 +3,7 @@ members = ["proc_macro"]
 
 [package]
 name = "xynok_std"
-version = "0.1.22"
+version = "0.1.23"
 edition = "2024"
 
 [lints.clippy]
