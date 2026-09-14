@@ -31,6 +31,11 @@ impl<T> HeapPtr<T>
     }
 
     #[inline]
+    pub fn ptr(&self) -> *const T
+    {
+        self.ptr
+    }
+    #[inline]
     pub(crate) fn get(&self) -> &T
     {
         unsafe { &*self.ptr }
