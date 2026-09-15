@@ -12,11 +12,11 @@ pub struct HeapPtr<T>
 
 impl<T> HeapPtr<T>
 {
-    #[inline]
-    pub fn from_raw(input: *const ()) -> Self
-    {
-        Self { ptr: input as *const T }
-    }
+    //#[inline]
+    //pub fn from_raw(input: *const ()) -> Self
+    //{
+    //    Self { ptr: input as *const T }
+    //}
     #[inline]
     pub fn new(val: T) -> Self
     {
